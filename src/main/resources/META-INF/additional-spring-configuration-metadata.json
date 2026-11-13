@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "spring.flyway.locations",
+  "type": "java.lang.String",
+  "description": "The location where FlyWay migration files to be found"
+}]}
