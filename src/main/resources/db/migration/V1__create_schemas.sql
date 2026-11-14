@@ -10,4 +10,7 @@ CREATE SCHEMA IF NOT EXISTS nutrition AUTHORIZATION vyctus_admin;
 --  SCHEMA: recipe
 CREATE SCHEMA IF NOT EXISTS recipe AUTHORIZATION vyctus_admin;
 
+--  SCHEMA: localization
+CREATE SCHEMA IF NOT EXISTS localization AUTHORIZATION vyctus_admin;
+
 
