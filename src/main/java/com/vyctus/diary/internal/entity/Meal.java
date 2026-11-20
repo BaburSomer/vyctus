@@ -40,7 +40,6 @@ import lombok.ToString;
 @Builder
 @Entity
 @Table(name = "meals", schema = "diary")
-
 public class Meal {
 
 	@Id
