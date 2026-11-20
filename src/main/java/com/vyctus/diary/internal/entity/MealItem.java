@@ -37,7 +37,6 @@ import lombok.ToString;
 @Builder
 @Entity
 @Table(name = "meal_items", schema = "diary")
-
 public class MealItem {
 
 	@Id
@@ -49,7 +48,7 @@ public class MealItem {
 
 	@NotNull
 	@NotBlank
-	@Column(name = "meal_oid", length = 36, columnDefinition = "UUID", nullable = false)
+	@Column(name = "meal_oid", length = 36, columnDefinition = "UUID", nullable = false, insertable=false, updatable=false)
 	private String mealOid;
 
 	@Column(name = "recipe_oid", length = 36, columnDefinition = "UUID")
@@ -70,6 +69,11 @@ public class MealItem {
 
 	@Column(name = "amount_source", length = 255)
 	private String amountSource;
+
+	@NotNull
+	@NotBlank
+	@Column(name = "calories", nullable = false)
+	private BigDecimal calories;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "meal_oid", nullable = false)

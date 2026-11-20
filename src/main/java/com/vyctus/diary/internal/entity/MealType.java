@@ -2,6 +2,7 @@ package com.vyctus.diary.internal.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -21,12 +22,13 @@ import lombok.ToString;
 @Builder
 @Entity
 @Table(name = "meal_types", schema = "diary")
-
 public class MealType {
+
+	@Id
 	@NotNull
 	@NotBlank
 	@Size(max = 50)
-	@Column(length = 50)
+	@Column(name = "name", length = 50, updatable = false, nullable = false)
 	private String name;
 
 	@NotNull

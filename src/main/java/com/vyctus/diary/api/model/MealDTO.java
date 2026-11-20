@@ -1,5 +1,6 @@
 package com.vyctus.diary.api.model;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.HashSet;
@@ -18,6 +19,7 @@ public class MealDTO {
 	private String              mealType;
 	private Date                mealDate;
 	private Time                mealTime;
+	private BigDecimal          totalCalories;
 	private String              notes;
 	private final Set<MealItem> mealItems = new HashSet<>();
 

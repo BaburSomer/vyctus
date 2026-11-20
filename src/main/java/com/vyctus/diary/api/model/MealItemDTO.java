@@ -17,6 +17,7 @@ public class MealItemDTO {
 	private String     unit;
 	private BigDecimal amount;
 	private String     amountSource;
+	private BigDecimal calories;
 	private Meal       meal;
 
 	/* Audit fields */

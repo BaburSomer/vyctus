@@ -1,5 +1,6 @@
 package com.vyctus.diary.internal.entity;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -70,6 +71,11 @@ public class Meal {
 	@NotBlank
 	@Column(name = "meal_time", nullable = false)
 	private Time mealTime;
+
+	@NotNull
+	@NotBlank
+	@Column(name = "total_calories", nullable = false)
+	private BigDecimal totalCalories;
 
 	@Column(name = "notes")
 	private String notes;
