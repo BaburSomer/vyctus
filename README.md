@@ -39,6 +39,7 @@ The architecture is designed to avoid unnecessary complexity while preserving th
 - **Concurrency Control:** JPA Optimistic Locking (`@Version`)
 - **Application Server:** Embedded Apache Tomcat 11
 - **Testing:** JUnit 5, Testcontainers
+- **Database Testing:** DbUnit for controlled database test data and dataset management
 
 ## Database Architecture
 
@@ -90,4 +91,4 @@ The long-term vision is to make nutritional awareness more accessible through re
 
 ---
 
-*VYCTUS – Eat Naturally. Live Intelligently.*# Vyctus
+*VYCTUS – Eat Naturally. Live Intelligently.*
