@@ -41,7 +41,7 @@ public class FoodNutritionProfile {
 
 	@NotNull
 	@NotBlank
-	@Column(name = "reference_amount", nullable = false)
+	@Column(name = "reference_amount", nullable = false, precision = 6, scale = 2)
 	private BigDecimal refAmount;
 
 	@NotNull
