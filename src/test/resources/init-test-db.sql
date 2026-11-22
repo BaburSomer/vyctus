@@ -1,0 +1,1 @@
+ALTER DATABASE vyctus_test SET datestyle TO 'German, DMY';
