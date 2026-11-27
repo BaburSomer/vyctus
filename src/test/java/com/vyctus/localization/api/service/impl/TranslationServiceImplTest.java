@@ -16,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
 import org.springframework.boot.jpa.test.autoconfigure.TestEntityManager;
+import org.springframework.context.annotation.Import;
 
+import com.vyctus.config.PostgresTestConfiguration;
 import com.vyctus.localization.internal.entity.Locale;
 import com.vyctus.localization.internal.entity.Translation;
 import com.vyctus.localization.internal.entity.TranslationId;
@@ -24,6 +26,7 @@ import com.vyctus.localization.internal.repository.TranslationRepository;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Import(PostgresTestConfiguration.class)
 class TranslationServiceImplTest {
 
    @Autowired

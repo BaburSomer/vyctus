@@ -26,39 +26,33 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(
-    name = "user_roles",
-    schema = "auth",
-    uniqueConstraints = {
-        @UniqueConstraint(
-            name = "idx_user_roles_1",
-            columnNames = {"user_oid", "role_oid"}
-        )
-    }
-)
+@Table(name = "user_roles", schema = "auth", uniqueConstraints = {
+		@UniqueConstraint(name = "idx_user_roles_1", columnNames = { "user_oid", "role_oid" }) })
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 public class UserRole {
+
 	@Id
 	@GeneratedValue(generator = "UUID")
 	@UuidGenerator
-	@Column(name = "oid", length = 36, columnDefinition = "UUID", updatable = false, nullable = false)
+	@Column(name = "oid", updatable = false, nullable = false)
 	private UUID oid;
 
+	@ToString.Exclude
 	@ManyToOne(fetch = FetchType.LAZY)
-   @JoinColumn(name = "user_oid", nullable = false)
-   private User user;
+	@JoinColumn(name = "user_oid", nullable = false)
+	private User user;
 
-   @ManyToOne(fetch = FetchType.LAZY)
-   @JoinColumn(name = "role_oid", nullable = false)
-   private Role role;
+	@ToString.Exclude
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "role_oid", nullable = false)
+	private Role role;
 
 	@Version
 	private Integer version;
 
-	@NotNull
 	@CreationTimestamp
 	private Timestamp created;
 

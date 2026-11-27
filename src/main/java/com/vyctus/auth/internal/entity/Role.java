@@ -6,10 +6,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
-import org.hibernate.type.SqlTypes;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,8 +39,7 @@ public class Role {
 	@Id
 	@GeneratedValue(generator = "UUID")
 	@UuidGenerator
-	@JdbcTypeCode(SqlTypes.CHAR)
-	@Column(name = "oid", length = 36, columnDefinition = "UUID", updatable = false, nullable = false)
+	@Column(name = "oid", updatable = false, nullable = false)
 	private UUID oid;
 
 	@NotNull
@@ -53,14 +50,21 @@ public class Role {
 
 	private String description;
 
+	@ToString.Exclude
 	@OneToMany(mappedBy = "role")
 	private final Set<UserRole> userRoles = new HashSet<>();
 	
+	public void addUser(User user) {
+		UserRole userRole = new UserRole();
+		userRole.setUser(user);
+		userRole.setRole(this);
+		userRoles.add(userRole);
+	}
+
 	/* Audit fields */
 	@Version
 	private Integer version;
 
-	@NotNull
 	@CreationTimestamp
 	private Timestamp created;
 
@@ -76,4 +80,22 @@ public class Role {
 	@Size(max = 50)
 	@Column(length = 50)
 	private String updatedBy;
+	
+	
+	
+	@Override
+	public Role clone () {
+		Role cloned = new Role();
+		
+		cloned.setOid(this.getOid());
+		cloned.setName(this.getName());
+		cloned.setDescription(this.getDescription());
+		cloned.setVersion(this.getVersion());
+		cloned.setCreated(this.getCreated());
+		cloned.setCreatedBy(this.getCreatedBy());
+		cloned.setUpdated(this.getUpdated());
+		cloned.setUpdatedBy(this.getUpdatedBy());
+				
+		return cloned;
+	}
 }

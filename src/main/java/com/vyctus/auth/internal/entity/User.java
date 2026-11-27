@@ -8,10 +8,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
-import org.hibernate.type.SqlTypes;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,8 +41,7 @@ public class User {
 	@Id
 	@GeneratedValue(generator = "UUID")
 	@UuidGenerator
-	@JdbcTypeCode(SqlTypes.CHAR)
-	@Column(name = "oid", length = 36, columnDefinition = "UUID", updatable = false, nullable = false)
+	@Column(name = "oid", updatable = false, nullable = false)
 	private UUID oid;
 
 	@NotNull
@@ -66,6 +63,7 @@ public class User {
 	@NotNull
 	private BigDecimal height;
 
+	@ToString.Exclude
 	@OneToMany(mappedBy = "user")
 	private final Set<UserRole> userRoles = new HashSet<>();
 
@@ -80,7 +78,16 @@ public class User {
 	@Version
 	private Integer version;
 
-	@NotNull
+/*	Hibernate manages both fields:
+		- @CreationTimestamp: Hibernate generates the creation timestamp.
+		- @Version: Hibernate manages the optimistic-locking version.
+		However, Jakarta Bean Validation can run before Hibernate has populated these fields.
+
+		Consequently:
+		1. Validation sees created == null and rejects the entity.
+		2. If you manually set created, validation then sees version == null and rejects it.
+ */
+//	@NotNull
 	@CreationTimestamp
 	private Timestamp created;
 
@@ -96,4 +103,22 @@ public class User {
 	@Size(max = 50)
 	@Column(length = 50)
 	private String updatedBy;
+	
+	@Override
+	public User clone() {
+		User cloned = new User();
+			
+		cloned.setOid(this.getOid());
+		cloned.setFirstName(this.getFirstName());
+		cloned.setLastName(this.getLastName());
+		cloned.setBirthDate(this.getBirthDate());
+		cloned.setHeight(this.getHeight());
+		cloned.setVersion(this.getVersion());
+		cloned.setCreated(this.getCreated());
+		cloned.setCreatedBy(this.getCreatedBy());
+		cloned.setUpdated(this.getUpdated());
+		cloned.setUpdatedBy(this.getUpdatedBy());
+				
+		return cloned;
+	}
 }

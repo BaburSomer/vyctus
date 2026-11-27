@@ -10,7 +10,7 @@ import lombok.Data;
 public class HealthMetricDTO {
 
 	private UUID       oid;
-	private String     userOid;
+	private UUID       userOid;
 	private Timestamp  measurementTime;
 	private BigDecimal weight;
 	private BigDecimal bmi;
